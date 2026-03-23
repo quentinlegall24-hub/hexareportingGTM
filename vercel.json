@@ -1,0 +1,6 @@
+{
+  "buildCommand": "cd hexa-gtm-dashboard && npm install && npm run build",
+  "outputDirectory": "hexa-gtm-dashboard/.next",
+  "installCommand": "cd hexa-gtm-dashboard && npm install",
+  "framework": "nextjs"
+}
