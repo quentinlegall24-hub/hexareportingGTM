@@ -194,7 +194,7 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
     }
     return weeks.map((w) => {
       const d = filteredData.find((x) => x.week === w)!;
-      return { week: formatWeek(w), rawWeek: w, ...d };
+      return { ...d, week: formatWeek(w), rawWeek: w };
     });
   }, [filteredData, selectedStartup]);
 
