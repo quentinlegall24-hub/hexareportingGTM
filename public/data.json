@@ -611,13 +611,4 @@
     "type": "weekly",
     "status": "sent"
   }
-      ][
-    {"startup":"Panora","week":"2026-03-02","leadsGenerated":35,"qualificationsHeld":6,"offersSent":2,"newCustomers":1,"newARR":3600,"customersLost":0,"arrLost":0,"totalCustomers":8,"arrStart":42000,"arrEnd":45600,"projectedARR":72000,"type":"weekly","status":"sent"},
-    {"startup":"Panora","week":"2026-03-09","leadsGenerated":42,"qualificationsHeld":8,"offersSent":3,"newCustomers":1,"newARR":4800,"customersLost":0,"arrLost":0,"totalCustomers":9,"arrStart":45600,"arrEnd":50400,"projectedARR":78000,"type":"weekly","status":"sent"},
-    {"startup":"Panora","week":"2026-03-16","leadsGenerated":38,"qualificationsHeld":7,"offersSent":4,"newCustomers":2,"newARR":7200,"customersLost":1,"arrLost":2400,"totalCustomers":10,"arrStart":50400,"arrEnd":55200,"projectedARR":85000,"type":"weekly","status":"sent"},
-    {"startup":"Panora","week":"2026-03-23","leadsGenerated":45,"qualificationsHeld":10,"offersSent":5,"newCustomers":2,"newARR":9600,"customersLost":0,"arrLost":0,"totalCustomers":12,"arrStart":55200,"arrEnd":64800,"projectedARR":92000,"type":"weekly","status":"sent"},
-    {"startup":"Plato","week":"2026-03-02","leadsGenerated":22,"qualificationsHeld":4,"offersSent":1,"newCustomers":0,"newARR":0,"customersLost":0,"arrLost":0,"totalCustomers":3,"arrStart":18000,"arrEnd":18000,"projectedARR":35000,"type":"weekly","status":"sent"},
-    {"startup":"Plato","week":"2026-03-09","leadsGenerated":28,"qualificationsHeld":5,"offersSent":2,"newCustomers":1,"newARR":6000,"customersLost":0,"arrLost":0,"totalCustomers":4,"arrStart":18000,"arrEnd":24000,"projectedARR":42000,"type":"weekly","status":"sent"},
-    {"startup":"Plato","week":"2026-03-16","leadsGenerated":31,"qualificationsHeld":6,"offersSent":3,"newCustomers":1,"newARR":5400,"customersLost":0,"arrLost":0,"totalCustomers":5,"arrStart":24000,"arrEnd":29400,"projectedARR":48000,"type":"weekly","status":"sent"},
-    {"startup":"Plato","week":"2026-03-23","leadsGenerated":36,"qualificationsHeld":8,"offersSent":4,"newCustomers":2,"newARR":8400,"customersLost":0,"arrLost":0,"totalCustomers":7,"arrStart":29400,"arrEnd":37800,"projectedARR":56000,"type":"weekly","status":"sent"}
 ]
