@@ -6,7 +6,6 @@ import {
   Tooltip, Legend, ResponsiveContainer, Area, AreaChart, ComposedChart,
 } from "recharts";
 
-// ── Types ──
 interface ReportRow {
   startup: string;
   week: string;
@@ -31,9 +30,9 @@ const COLORS = [
 ];
 
 const formatEuro = (v: number) => {
-  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}M\u20ac`;
-  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}k\u20ac`;
-  return `${v}\u20ac`;
+  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}Mâ¬`;
+  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}kâ¬`;
+  return `${v}â¬`;
 };
 
 const formatWeek = (w: string) => {
@@ -41,7 +40,6 @@ const formatWeek = (w: string) => {
   return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 };
 
-// ── Metric Card ──
 function MetricCard({ label, value, subtext, trend, color = "indigo" }: {
   label: string; value: string | number; subtext?: string;
   trend?: number; color?: string;
@@ -67,7 +65,6 @@ function MetricCard({ label, value, subtext, trend, color = "indigo" }: {
   );
 }
 
-// ── Startup Tabs ──
 function StartupTabs({ startups, selected, onSelect }: {
   startups: string[]; selected: string; onSelect: (s: string) => void;
 }) {
@@ -95,7 +92,6 @@ function StartupTabs({ startups, selected, onSelect }: {
   );
 }
 
-// ── Pipeline Funnel ──
 function PipelineFunnel({ data }: { data: ReportRow[] }) {
   const stages = [
     { key: "leadsGenerated" as const, label: "Leads", color: "#6366f1" },
@@ -107,7 +103,6 @@ function PipelineFunnel({ data }: { data: ReportRow[] }) {
     ...s, value: data.reduce((sum, d) => sum + (d[s.key] || 0), 0),
   }));
   const max = Math.max(...totals.map((t) => t.value), 1);
-
   return (
     <div className="space-y-3">
       {totals.map((stage) => (
@@ -125,12 +120,22 @@ function PipelineFunnel({ data }: { data: ReportRow[] }) {
   );
 }
 
-// ── Empty State ──
+function LoadingState() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+        <p className="mt-4 text-gray-500">Chargement des donn\u00e9es...</p>
+      </div>
+    </div>
+  );
+}
+
 function EmptyState() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center max-w-md">
-        <div className="text-6xl mb-4">📊</div>
+        <div className="text-6xl mb-4">{"\ud83d\udcca"}</div>
         <h2 className="text-2xl font-bold text-gray-800 mb-2">Aucune donn\u00e9e pour le moment</h2>
         <p className="text-gray-500">
           Les donn\u00e9es appara\u00eetront ici d\u00e8s que les founders soumettront leur premier reporting hebdomadaire via Claude.
@@ -140,41 +145,42 @@ function EmptyState() {
   );
 }
 
-// ── Main Dashboard ──
-export default function Dashboard({ initialData }: { initialData: ReportRow[] }) {
-  const [data, setData] = useState<ReportRow[]>(initialData);
+export default function Dashboard() {
+  const [data, setData] = useState<ReportRow[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedStartup, setSelectedStartup] = useState("all");
   const [lastRefresh, setLastRefresh] = useState(new Date());
 
-  // Auto-refresh every 5 minutes
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      try {
-        const res = await fetch("/api/reports");
-        if (res.ok) {
-          const fresh = await res.json();
+  const fetchData = async () => {
+    try {
+      const res = await fetch("/data.json", { cache: "no-store" });
+      if (res.ok) {
+        const fresh = await res.json();
+        if (Array.isArray(fresh)) {
           setData(fresh);
           setLastRefresh(new Date());
         }
-      } catch {}
-    }, 5 * 60 * 1000);
+      }
+    } catch {
+      // silently fail
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(interval);
   }, []);
 
   const weeklyData = useMemo(() => data.filter((d) => d.type === "weekly"), [data]);
-
-  const startups = useMemo(
-    () => [...new Set(weeklyData.map((d) => d.startup))].sort(),
-    [weeklyData]
-  );
-
+  const startups = useMemo(() => [...new Set(weeklyData.map((d) => d.startup))].sort(), [weeklyData]);
   const filteredData = useMemo(
-    () => selectedStartup === "all" ? weeklyData
-      : weeklyData.filter((d) => d.startup === selectedStartup),
+    () => selectedStartup === "all" ? weeklyData : weeklyData.filter((d) => d.startup === selectedStartup),
     [selectedStartup, weeklyData]
   );
 
-  // Aggregate by week
   const chartData = useMemo(() => {
     const weeks = [...new Set(filteredData.map((d) => d.week))].sort();
     if (selectedStartup === "all") {
@@ -198,7 +204,6 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
     });
   }, [filteredData, selectedStartup]);
 
-  // Per-startup ARR stacked
   const arrByStartup = useMemo(() => {
     const weeks = [...new Set(weeklyData.map((d) => d.week))].sort();
     return weeks.map((w) => {
@@ -213,34 +218,31 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
 
   const latestWeek = chartData.length > 0 ? chartData[chartData.length - 1] : null;
   const previousWeek = chartData.length > 1 ? chartData[chartData.length - 2] : null;
-
   const pctChange = (curr: number, prev?: number) => {
     if (!prev || prev === 0) return undefined;
     return ((curr - prev) / prev) * 100;
   };
 
+  if (loading) return <LoadingState />;
   if (weeklyData.length === 0) return <EmptyState />;
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Hexa GTM Dashboard</h1>
             <p className="text-gray-500 mt-1">
-              Reporting commercial — {startups.length} startup{startups.length > 1 ? "s" : ""}
+              Reporting commercial {"\u2014"} {startups.length} startup{startups.length > 1 ? "s" : ""}
             </p>
           </div>
           <div className="text-right text-sm text-gray-400">
-            Derni\u00e8re MAJ : {lastRefresh.toLocaleDateString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}
+            Derni{"\u00e8"}re MAJ : {lastRefresh.toLocaleDateString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}
           </div>
         </div>
 
-        {/* Startup tabs */}
         <StartupTabs startups={startups} selected={selectedStartup} onSelect={setSelectedStartup} />
 
-        {/* KPI cards */}
         {latestWeek && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
             <MetricCard label="Leads g\u00e9n\u00e9r\u00e9s" value={latestWeek.leadsGenerated}
@@ -257,7 +259,6 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
           </div>
         )}
 
-        {/* Charts row 1 */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
@@ -301,11 +302,11 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
               <div className="text-xs text-gray-400 uppercase tracking-wide mb-2">Conversion</div>
               {latestWeek && latestWeek.leadsGenerated > 0 && (
                 <div className="space-y-1 text-sm text-gray-600">
-                  <div>Lead \u2192 Qualif: <span className="font-semibold">
+                  <div>Lead {"\u2192"} Qualif: <span className="font-semibold">
                     {((latestWeek.qualificationsHeld / latestWeek.leadsGenerated) * 100).toFixed(0)}%</span></div>
-                  <div>Qualif \u2192 Offre: <span className="font-semibold">
+                  <div>Qualif {"\u2192"} Offre: <span className="font-semibold">
                     {latestWeek.qualificationsHeld > 0 ? ((latestWeek.offersSent / latestWeek.qualificationsHeld) * 100).toFixed(0) : 0}%</span></div>
-                  <div>Offre \u2192 Client: <span className="font-semibold">
+                  <div>Offre {"\u2192"} Client: <span className="font-semibold">
                     {latestWeek.offersSent > 0 ? ((latestWeek.newCustomers / latestWeek.offersSent) * 100).toFixed(0) : 0}%</span></div>
                 </div>
               )}
@@ -313,7 +314,6 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
           </div>
         </div>
 
-        {/* Charts row 2 */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">Activit\u00e9 pipeline</h2>
@@ -346,7 +346,6 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
           </div>
         </div>
 
-        {/* Data table */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-5 border-b border-gray-100">
             <h2 className="text-lg font-semibold text-gray-800">D\u00e9tail par semaine</h2>
@@ -393,9 +392,8 @@ export default function Dashboard({ initialData }: { initialData: ReportRow[] })
           </div>
         </div>
 
-        {/* Footer */}
         <div className="text-center text-xs text-gray-400 py-4">
-          Hexa GTM Dashboard \u2014 Donn\u00e9es en direct depuis Notion \u2022 Auto-refresh toutes les 5 min
+          Hexa GTM Dashboard {"\u2014"} Donn\u00e9es mises \u00e0 jour via GitHub {"\u2022"} Auto-refresh toutes les 5 min
         </div>
       </div>
     </div>
