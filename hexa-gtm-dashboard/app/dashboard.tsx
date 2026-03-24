@@ -30,9 +30,9 @@ const COLORS = [
 ];
 
 const formatEuro = (v: number) => {
-  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}Mâ¬`;
-  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}kâ¬`;
-  return `${v}â¬`;
+  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}M\u20ac`;
+  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}k\u20ac`;
+  return `${v}\u20ac`;
 };
 
 const formatWeek = (w: string) => {
@@ -245,11 +245,11 @@ export default function Dashboard() {
 
         {latestWeek && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <MetricCard label="Leads g\u00e9n\u00e9r\u00e9s" value={latestWeek.leadsGenerated}
+            <MetricCard label={`Leads g\u00e9n\u00e9r\u00e9s`} value={latestWeek.leadsGenerated}
               trend={pctChange(latestWeek.leadsGenerated, previousWeek?.leadsGenerated)} color="indigo" />
             <MetricCard label="Qualifications" value={latestWeek.qualificationsHeld}
               trend={pctChange(latestWeek.qualificationsHeld, previousWeek?.qualificationsHeld)} color="purple" />
-            <MetricCard label="Offres envoy\u00e9es" value={latestWeek.offersSent}
+            <MetricCard label={`Offres envoy\u00e9es`} value={latestWeek.offersSent}
               trend={pctChange(latestWeek.offersSent, previousWeek?.offersSent)} color="amber" />
             <MetricCard label="Nouveaux clients" value={latestWeek.newCustomers}
               trend={pctChange(latestWeek.newCustomers, previousWeek?.newCustomers)} color="green" />
@@ -262,7 +262,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <h2 className="text-lg font-semibold text-gray-800 mb-4">
-              {selectedStartup === "all" ? "ARR consolid\u00e9 par startup" : `\u00c9volution ARR \u2014 ${selectedStartup}`}
+              {selectedStartup === "all" ? `ARR consolid\u00e9 par startup` : `\u00c9volution ARR \u2014 ${selectedStartup}`}
             </h2>
             <ResponsiveContainer width="100%" height={280}>
               {selectedStartup === "all" ? (
@@ -284,9 +284,9 @@ export default function Dashboard() {
                   <YAxis tickFormatter={formatEuro} tick={{ fontSize: 12 }} />
                   <Tooltip formatter={(v: number) => formatEuro(v)} />
                   <Legend />
-                  <Area type="monotone" dataKey="projectedARR" name="ARR projet\u00e9"
+                  <Area type="monotone" dataKey="projectedARR" name={`ARR projet\u00e9`}
                     fill="#c7d2fe" stroke="#818cf8" fillOpacity={0.3} />
-                  <Line type="monotone" dataKey="arrEnd" name="ARR r\u00e9el"
+                  <Line type="monotone" dataKey="arrEnd" name={`ARR r\u00e9el`}
                     stroke="#6366f1" strokeWidth={3} dot={{ r: 5 }} />
                 </ComposedChart>
               )}
@@ -316,7 +316,7 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
-            <h2 className="text-lg font-semibold text-gray-800 mb-4">Activit\u00e9 pipeline</h2>
+            <h2 className="text-lg font-semibold text-gray-800 mb-4">{`Activit\u00e9 pipeline`}</h2>
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={chartData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
@@ -348,7 +348,7 @@ export default function Dashboard() {
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-5 border-b border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-800">D\u00e9tail par semaine</h2>
+            <h2 className="text-lg font-semibold text-gray-800">{`D\u00e9tail par semaine`}</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -361,7 +361,7 @@ export default function Dashboard() {
                   <th className="px-4 py-3 text-right font-medium text-gray-500">Offres</th>
                   <th className="px-4 py-3 text-right font-medium text-gray-500">Clients</th>
                   <th className="px-4 py-3 text-right font-medium text-gray-500">ARR fin</th>
-                  <th className="px-4 py-3 text-right font-medium text-gray-500">ARR projet\u00e9</th>
+                  <th className="px-4 py-3 text-right font-medium text-gray-500">{`ARR projet\u00e9`}</th>
                   <th className="px-4 py-3 text-center font-medium text-gray-500">Statut</th>
                 </tr>
               </thead>
@@ -393,7 +393,7 @@ export default function Dashboard() {
         </div>
 
         <div className="text-center text-xs text-gray-400 py-4">
-          Hexa GTM Dashboard {"\u2014"} Donn\u00e9es mises \u00e0 jour via GitHub {"\u2022"} Auto-refresh toutes les 5 min
+          Hexa GTM Dashboard {"\u2014"} Donn{"\u00e9"}es mises {"\u00e0"} jour via GitHub {"\u2022"} Auto-refresh toutes les 5 min
         </div>
       </div>
     </div>
