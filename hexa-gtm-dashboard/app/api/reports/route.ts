@@ -1,17 +1,15 @@
 import { NextResponse } from "next/server";
-import { fetchAllReports } from "@/lib/data";
-
-export const revalidate = 300; // revalidate every 5 minutes
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export async function GET() {
   try {
-    const reports = await fetchAllReports();
-    return NextResponse.json(reports);
-  } catch (error: any) {
-    console.error("Failed to fetch reports from Notion:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch data", details: error.message },
-      { status: 500 }
-    );
+    const filePath = join(process.cwd(), "public", "data.json");
+    const raw = readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    return NextResponse.json(Array.isArray(data) ? data : []);
+  } catch {
+    // If file can't be read (e.g. on Vercel), return empty array
+    return NextResponse.json([]);
   }
 }
