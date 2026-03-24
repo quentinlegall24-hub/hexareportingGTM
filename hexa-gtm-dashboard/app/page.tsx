@@ -1,4 +1,4 @@
-import { fetchAllReports } from "@/lib/notion";
+import { fetchAllReports } from "@/lib/data";
 import Dashboard from "./dashboard";
 
 export const revalidate = 300; // ISR: refresh every 5 min

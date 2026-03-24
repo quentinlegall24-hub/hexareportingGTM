@@ -25,10 +25,6 @@ echo "✅ Repo created and pushed!"
 # Step 3: Deploy with Vercel
 echo ""
 echo "🔗 Deploying to Vercel..."
-echo "⚠️  When prompted, add these environment variables:"
-echo "   NOTION_API_KEY = your Notion integration token"
-echo "   NOTION_DATABASE_ID = 2bd9a15e3b884f0980b011fa145c2b2a"
-echo ""
 npx vercel --yes
 
 echo ""

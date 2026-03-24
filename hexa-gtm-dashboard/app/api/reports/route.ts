@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchAllReports } from "@/lib/notion";
+import { fetchAllReports } from "@/lib/data";
 
 export const revalidate = 300; // revalidate every 5 minutes
 
