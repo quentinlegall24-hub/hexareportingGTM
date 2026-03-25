@@ -24,60 +24,60 @@ interface ReportRow {
   status: string;
 }
 
-/* ââ Methodology metadata ââ */
+/* ── Methodology metadata ── */
 const METHODOLOGY: Record<string, { label: string; shortDesc: string; details: string; source: string }> = {
   leadsGenerated: {
-    label: "Leads gÃ©nÃ©rÃ©s",
-    shortDesc: "Nombre de leads contactÃ©s dans la semaine",
-    details: "Panora : Â« leads contactÃ©s Â» reportÃ©s dans la page Weekly Sales Notion. Avant mars, estimÃ© dâaprÃ¨s les mentions qualitatives (30-40/sem nov-dÃ©c, montÃ©e Ã  60-70 en fÃ©vrier, puis chiffres exacts en mars).\nPlato : volume plus faible (marchÃ© niche avocats), reconstituÃ© Ã  partir des entrÃ©es CRM et Slack.",
+    label: "Leads générés",
+    shortDesc: "Nombre de leads contactés dans la semaine",
+    details: "Panora : « leads contactés » reportés dans la page Weekly Sales Notion. Avant mars, estimé d’après les mentions qualitatives (30-40/sem nov-déc, montée à 60-70 en février, puis chiffres exacts en mars).\nPlato : volume plus faible (marché niche avocats), reconstitué à partir des entrées CRM et Slack.",
     source: "Weekly Sales Notion + CRM Notion + Slack",
   },
   qualificationsHeld: {
     label: "Qualifications",
-    shortDesc: "Nombre de dÃ©mos/qualifications tenues",
-    details: "Panora : Â« demos booked Â» dans les tableaux Weekly Sales. Mars : 17 (W03), 22 (W10), 11 (W17), 7 (W24). Avant mars : estimÃ© proportionnellement Ã  la croissance (3-5/sem nov-dÃ©c, 4-6 en janvier, 8-12 en fÃ©vrier).\nPlato : basÃ© sur les qualifications CRM (entrÃ©es en stage Â« Qualif Â»).",
+    shortDesc: "Nombre de démos/qualifications tenues",
+    details: "Panora : « demos booked » dans les tableaux Weekly Sales. Mars : 17 (W03), 22 (W10), 11 (W17), 7 (W24). Avant mars : estimé proportionnellement à la croissance (3-5/sem nov-déc, 4-6 en janvier, 8-12 en février).\nPlato : basé sur les qualifications CRM (entrées en stage « Qualif »).",
     source: "Weekly Sales Notion + CRM Plato",
   },
   offersSent: {
-    label: "Offres envoyÃ©es",
-    shortDesc: "Nombre de propositions/offres envoyÃ©es",
-    details: "Correspond aux prospects passÃ©s en stage Â« Hot discussions Â» / Â« Free Trial Â» dans le CRM Panora, et aux offres formalisÃ©es pour Plato. EstimÃ© Ã  partir du ratio qualif â offre observÃ© (~40-50%).",
+    label: "Offres envoyées",
+    shortDesc: "Nombre de propositions/offres envoyées",
+    details: "Correspond aux prospects passés en stage « Hot discussions » / « Free Trial » dans le CRM Panora, et aux offres formalisées pour Plato. Estimé à partir du ratio qualif → offre observé (~40-50%).",
     source: "CRM Brokers Notion + CRM Plato Notion",
   },
   newCustomers: {
     label: "Nouveaux clients",
-    shortDesc: "Design Partners / clients onboardÃ©s cette semaine",
-    details: "Panora : Â« clients onboarded Â» de la Weekly Sales. Progression cumulative des Â« To date Â» sections : 1 DP (CEGEAS) en W48 nov â 5 fin dÃ©c â plateau jan â reprise Ã  6 en W19/01, accÃ©lÃ©ration Ã  30 en W24/03.\nPlato : chaque avocat signÃ© avec Deal Size dans le CRM (ex: Roman Leibovici, Closed Won 12/03/2026).",
+    shortDesc: "Design Partners / clients onboardés cette semaine",
+    details: "Panora : « clients onboarded » de la Weekly Sales. Progression cumulative des « To date » sections : 1 DP (CEGEAS) en W48 nov → 5 fin déc → plateau jan → reprise à 6 en W19/01, accélération à 30 en W24/03.\nPlato : chaque avocat signé avec Deal Size dans le CRM (ex: Roman Leibovici, Closed Won 12/03/2026).",
     source: "Weekly Sales Notion + CRM Brokers + CRM Plato (Closed Won)",
   },
   arrEnd: {
     label: "ARR actuel",
-    shortDesc: "ARR cumulÃ© en fin de semaine",
-    details: "Panora : pas de champ Deal Size dans le CRM. EstimÃ© Ã  ~3 600â¬/an par DP (pricing model : 150â¬/mois/agent/module Ã 2 modules en moyenne = 300â¬/mois = 3 600â¬/an). Formule : arrEnd = arrStart + (newCustomers Ã 3 600) - arrLost.\nPlato : champ Deal Size prÃ©sent dans le CRM (~450â¬/DP). Formule : arrEnd = arrStart + newARR - arrLost.\nConsolidÃ© = somme Panora + Plato.",
-    source: "CRM Brokers (pricing model 150â¬/mth) + CRM Plato (Deal Size)",
+    shortDesc: "ARR cumulé en fin de semaine",
+    details: "Panora : pas de champ Deal Size dans le CRM. Estimé à ~3 600€/an par DP (pricing model : 150€/mois/agent/module × 2 modules en moyenne = 300€/mois = 3 600€/an). Formule : arrEnd = arrStart + (newCustomers × 3 600) - arrLost.\nPlato : champ Deal Size présent dans le CRM (~450€/DP). Formule : arrEnd = arrStart + newARR - arrLost.\nConsolidé = somme Panora + Plato.",
+    source: "CRM Brokers (pricing model 150€/mth) + CRM Plato (Deal Size)",
   },
   projectedARR: {
-    label: "ARR projetÃ©",
-    shortDesc: "ARR incluant le pipeline qualifiÃ©",
-    details: "Panora : inclut les top deals du Â« hustle board Â» Weekly Sales : BessÃ© (120Kâ¬), Arilim (150Kâ¬), Suire (150Kâ¬), ValÃ©as (60Kâ¬), etc. Total pipeline ~398-420Kâ¬ en mars.\nPlato : basÃ© sur le pipeline visible dans le CRM (prospects en Qualif Ã deal size moyen).\nAvant mars : estimÃ© Ã  partir du nombre de prospects en Â« Hot discussions Â» Ã ARR moyen.",
+    label: "ARR projeté",
+    shortDesc: "ARR incluant le pipeline qualifié",
+    details: "Panora : inclut les top deals du « hustle board » Weekly Sales : Bessé (120K€), Arilim (150K€), Suire (150K€), Valéas (60K€), etc. Total pipeline ~398-420K€ en mars.\nPlato : basé sur le pipeline visible dans le CRM (prospects en Qualif × deal size moyen).\nAvant mars : estimé à partir du nombre de prospects en « Hot discussions » × ARR moyen.",
     source: "Weekly Sales (hustle board) + CRM pipeline",
   },
   newARR: {
     label: "Nouvel ARR",
-    shortDesc: "ARR additionnel gÃ©nÃ©rÃ© cette semaine",
-    details: "Panora : newCustomers Ã 3 600â¬ (estimation pricing model).\nPlato : newCustomers Ã ~450â¬ (Deal Size CRM), avec quelques variations (W17/02 : 1 000â¬, W03/03 : 1 630â¬ pour 2 clients de valeurs diffÃ©rentes).",
+    shortDesc: "ARR additionnel généré cette semaine",
+    details: "Panora : newCustomers × 3 600€ (estimation pricing model).\nPlato : newCustomers × ~450€ (Deal Size CRM), avec quelques variations (W17/02 : 1 000€, W03/03 : 1 630€ pour 2 clients de valeurs différentes).",
     source: "CRM Brokers (pricing) + CRM Plato (Deal Size)",
   },
   conversion: {
     label: "Taux de conversion",
-    shortDesc: "Ratios entre Ã©tapes du pipeline",
-    details: "CalculÃ© directement : Lead â Qualif = qualificationsHeld / leadsGenerated. Qualif â Offre = offersSent / qualificationsHeld. Offre â Client = newCustomers / offersSent. BasÃ© sur les donnÃ©es de la semaine en cours uniquement.",
-    source: "Calcul automatique depuis les donnÃ©es hebdomadaires",
+    shortDesc: "Ratios entre étapes du pipeline",
+    details: "Calculé directement : Lead → Qualif = qualificationsHeld / leadsGenerated. Qualif → Offre = offersSent / qualificationsHeld. Offre → Client = newCustomers / offersSent. Basé sur les données de la semaine en cours uniquement.",
+    source: "Calcul automatique depuis les données hebdomadaires",
   },
   customersLost: {
     label: "Churn",
-    shortDesc: "Clients perdus et ARR associÃ©",
-    details: "Panora W10/02 : 2 clients perdus (churn observÃ© dans le CRM), arrLost = 7 200â¬.\nPlato W17/03 : 1 client perdu, arrLost = 450â¬.\nToutes les autres semaines : 0 churn.",
+    shortDesc: "Clients perdus et ARR associé",
+    details: "Panora W10/02 : 2 clients perdus (churn observé dans le CRM), arrLost = 7 200€.\nPlato W17/03 : 1 client perdu, arrLost = 450€.\nToutes les autres semaines : 0 churn.",
     source: "CRM Brokers + CRM Plato (changements de stage)",
   },
 };
@@ -88,9 +88,9 @@ const COLORS = [
 ];
 
 const formatEuro = (v: number) => {
-  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}Mâ¬`;
-  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}kâ¬`;
-  return `${v}â¬`;
+  if (v >= 1000000) return `${(v / 1000000).toFixed(1)}M€`;
+  if (v >= 1000) return `${(v / 1000).toFixed(v % 1000 === 0 ? 0 : 1)}k€`;
+  return `${v}€`;
 };
 
 const formatWeek = (w: string) => {
@@ -98,7 +98,7 @@ const formatWeek = (w: string) => {
   return d.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
 };
 
-/* ââ Info Tooltip component ââ */
+/* ── Info Tooltip component ── */
 function InfoTooltip({ metricKey }: { metricKey: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -118,7 +118,7 @@ function InfoTooltip({ metricKey }: { metricKey: string }) {
       <button
         onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
         className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-white/50 hover:bg-white text-[10px] font-bold opacity-60 hover:opacity-100 transition-all cursor-pointer border border-current/20"
-        title="Voir la mÃ©thodologie"
+        title="Voir la méthodologie"
       >
         i
       </button>
@@ -136,14 +136,14 @@ function InfoTooltip({ metricKey }: { metricKey: string }) {
   );
 }
 
-/* ââ Methodology Modal ââ */
+/* ── Methodology Modal ── */
 function MethodologyModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-          <h2 className="text-lg font-bold text-gray-900">MÃ©thodologie de calcul</h2>
+          <h2 className="text-lg font-bold text-gray-900">Méthodologie de calcul</h2>
           <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-xl font-bold">&times;</button>
         </div>
         <div className="px-6 py-4 space-y-5">
@@ -157,11 +157,11 @@ function MethodologyModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
             </div>
           ))}
           <div className="border-t border-gray-200 pt-4 text-xs text-gray-400">
-            <p className="font-medium text-gray-600 mb-1">HypothÃ¨ses clÃ©s</p>
-            <p>â¢ ARR Panora : estimÃ© Ã  3 600â¬/an par DP (pricing 150â¬/mois/module Ã 2 modules). Le CRM nâa pas de champ Deal Size.</p>
-            <p>â¢ ARR Plato : ~450â¬/DP (champ Deal Size prÃ©sent dans le CRM).</p>
-            <p>â¢ Semaines avant mars : reconstituÃ©es Ã  partir des sections Â« To date Â» qualitatives de la Weekly Sales page.</p>
-            <p>â¢ Les donnÃ©es de mars sont les plus fiables (tableaux structurÃ©s Notion avec chiffres exacts).</p>
+            <p className="font-medium text-gray-600 mb-1">Hypothèses clés</p>
+            <p>• ARR Panora : estimé à 3 600€/an par DP (pricing 150€/mois/module × 2 modules). Le CRM n’a pas de champ Deal Size.</p>
+            <p>• ARR Plato : ~450€/DP (champ Deal Size présent dans le CRM).</p>
+            <p>• Semaines avant mars : reconstituées à partir des sections « To date » qualitatives de la Weekly Sales page.</p>
+            <p>• Les données de mars sont les plus fiables (tableaux structurés Notion avec chiffres exacts).</p>
           </div>
         </div>
       </div>
@@ -169,7 +169,7 @@ function MethodologyModal({ isOpen, onClose }: { isOpen: boolean; onClose: () =>
   );
 }
 
-/* ââ Enhanced Recharts Tooltip ââ */
+/* ── Enhanced Recharts Tooltip ── */
 function ChartTooltipContent({ active, payload, label, metricKeys }: any) {
   if (!active || !payload || payload.length === 0) return null;
   return (
@@ -187,7 +187,7 @@ function ChartTooltipContent({ active, payload, label, metricKeys }: any) {
       {metricKeys && metricKeys.length > 0 && (
         <div className="mt-2 pt-2 border-t border-gray-700 text-gray-400">
           {metricKeys.map((k: string) => METHODOLOGY[k]?.shortDesc).filter(Boolean).slice(0, 2).map((desc: string, i: number) => (
-            <div key={i} className="text-[10px]">{"â¹ï¸"} {desc}</div>
+            <div key={i} className="text-[10px]">{"ℹ️"} {desc}</div>
           ))}
         </div>
       )}
@@ -216,7 +216,7 @@ function MetricCard({ label, value, subtext, trend, color = "indigo", metricKey 
       {subtext && <div className="mt-1 text-xs opacity-60">{subtext}</div>}
       {trend !== undefined && (
         <div className={`mt-1 text-xs font-semibold ${trend >= 0 ? "text-emerald-600" : "text-red-500"}`}>
-          {trend >= 0 ? "â²" : "â¼"} {Math.abs(trend).toFixed(1)}% vs semaine prÃ©cÃ©dente
+          {trend >= 0 ? "▲" : "▼"} {Math.abs(trend).toFixed(1)}% vs semaine précédente
         </div>
       )}
     </div>
@@ -286,7 +286,7 @@ function LoadingState() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
-        <p className="mt-4 text-gray-500">Chargement des donnÃ©es...</p>
+        <p className="mt-4 text-gray-500">Chargement des données...</p>
       </div>
     </div>
   );
@@ -296,17 +296,17 @@ function EmptyState() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <div className="text-center max-w-md">
-        <div className="text-6xl mb-4">ð</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">Aucune donnÃ©e pour le moment</h2>
+        <div className="text-6xl mb-4">📊</div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Aucune donnée pour le moment</h2>
         <p className="text-gray-500">
-          Les donnÃ©es apparaÃ®tront ici dÃ¨s que les founders soumettront leur premier reporting hebdomadaire via Claude.
+          Les données apparaîtront ici dès que les founders soumettront leur premier reporting hebdomadaire via Claude.
         </p>
       </div>
     </div>
   );
 }
 
-/* ââ Table row tooltip ââ */
+/* ── Table row tooltip ── */
 function TableCellWithTooltip({ value, metricKey, isEuro = false }: { value: number; metricKey: string; isEuro?: boolean }) {
   const [hover, setHover] = useState(false);
   const meta = METHODOLOGY[metricKey];
@@ -417,7 +417,7 @@ export default function Dashboard() {
           <div>
             <h1 className="text-3xl font-bold text-gray-900">Hexa GTM Dashboard</h1>
             <p className="text-gray-500 mt-1">
-              Reporting commercial {"â"} {startups.length} startup{startups.length > 1 ? "s" : ""}
+              Reporting commercial {"—"} {startups.length} startup{startups.length > 1 ? "s" : ""}
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -425,10 +425,10 @@ export default function Dashboard() {
               onClick={() => setShowMethodology(true)}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-indigo-600 bg-indigo-50 border border-indigo-200 hover:bg-indigo-100 transition-all"
             >
-              <span className="text-sm">&#x2139;&#xfe0f;</span> MÃ©thodologie
+              <span className="text-sm">&#x2139;&#xfe0f;</span> Méthodologie
             </button>
             <div className="text-right text-sm text-gray-400">
-              Derni{"Ã¨"}re MAJ : {lastRefresh.toLocaleDateString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}
+              Derni{"è"}re MAJ : {lastRefresh.toLocaleDateString("fr-FR", { day: "numeric", month: "long", hour: "2-digit", minute: "2-digit" })}
             </div>
           </div>
         </div>
@@ -437,20 +437,20 @@ export default function Dashboard() {
 
         {latestWeek && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <MetricCard label="Leads gÃ©nÃ©rÃ©s" value={latestWeek.leadsGenerated}
+            <MetricCard label="Leads générés" value={latestWeek.leadsGenerated}
               trend={pctChange(latestWeek.leadsGenerated, previousWeek?.leadsGenerated)} color="indigo"
               metricKey="leadsGenerated" />
             <MetricCard label="Qualifications" value={latestWeek.qualificationsHeld}
               trend={pctChange(latestWeek.qualificationsHeld, previousWeek?.qualificationsHeld)} color="purple"
               metricKey="qualificationsHeld" />
-            <MetricCard label="Offres envoyÃ©es" value={latestWeek.offersSent}
+            <MetricCard label="Offres envoyées" value={latestWeek.offersSent}
               trend={pctChange(latestWeek.offersSent, previousWeek?.offersSent)} color="amber"
               metricKey="offersSent" />
             <MetricCard label="Nouveaux clients" value={latestWeek.newCustomers}
               trend={pctChange(latestWeek.newCustomers, previousWeek?.newCustomers)} color="green"
               metricKey="newCustomers" />
             <MetricCard label="ARR actuel" value={formatEuro(latestWeek.arrEnd || 0)}
-              subtext={`ProjetÃ©: ${formatEuro(latestWeek.projectedARR || 0)}`}
+              subtext={`Projeté: ${formatEuro(latestWeek.projectedARR || 0)}`}
               trend={pctChange(latestWeek.arrEnd, previousWeek?.arrEnd)} color="green"
               metricKey="arrEnd" />
           </div>
@@ -460,7 +460,7 @@ export default function Dashboard() {
           <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div className="flex items-center gap-2 mb-4">
               <h2 className="text-lg font-semibold text-gray-800">
-                {selectedStartup === "all" ? "ARR consolidÃ© par startup" : `Ãvolution ARR â ${selectedStartup}`}
+                {selectedStartup === "all" ? "ARR consolidé par startup" : `Évolution ARR — ${selectedStartup}`}
               </h2>
               <InfoTooltip metricKey="arrEnd" />
             </div>
@@ -484,9 +484,9 @@ export default function Dashboard() {
                   <YAxis tickFormatter={formatEuro} tick={{ fontSize: 12 }} />
                   <Tooltip content={<ChartTooltipContent metricKeys={["arrEnd", "projectedARR"]} />} />
                   <Legend />
-                  <Area type="monotone" dataKey="projectedARR" name="ARR projetÃ©"
+                  <Area type="monotone" dataKey="projectedARR" name="ARR projeté"
                     fill="#c7d2fe" stroke="#818cf8" fillOpacity={0.3} />
-                  <Line type="monotone" dataKey="arrEnd" name="ARR rÃ©el"
+                  <Line type="monotone" dataKey="arrEnd" name="ARR réel"
                     stroke="#6366f1" strokeWidth={3} dot={{ r: 5 }} />
                 </ComposedChart>
               )}
@@ -504,11 +504,11 @@ export default function Dashboard() {
               </div>
               {latestWeek && latestWeek.leadsGenerated > 0 && (
                 <div className="space-y-1 text-sm text-gray-600">
-                  <div>Lead {"â"} Qualif: <span className="font-semibold">
+                  <div>Lead {"→"} Qualif: <span className="font-semibold">
                     {((latestWeek.qualificationsHeld / latestWeek.leadsGenerated) * 100).toFixed(0)}%</span></div>
-                  <div>Qualif {"â"} Offre: <span className="font-semibold">
+                  <div>Qualif {"→"} Offre: <span className="font-semibold">
                     {latestWeek.qualificationsHeld > 0 ? ((latestWeek.offersSent / latestWeek.qualificationsHeld) * 100).toFixed(0) : 0}%</span></div>
-                  <div>Offre {"â"} Client: <span className="font-semibold">
+                  <div>Offre {"→"} Client: <span className="font-semibold">
                     {latestWeek.offersSent > 0 ? ((latestWeek.newCustomers / latestWeek.offersSent) * 100).toFixed(0) : 0}%</span></div>
                 </div>
               )}
@@ -519,7 +519,7 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-5">
             <div className="flex items-center gap-2 mb-4">
-              <h2 className="text-lg font-semibold text-gray-800">ActivitÃ© pipeline</h2>
+              <h2 className="text-lg font-semibold text-gray-800">Activité pipeline</h2>
               <InfoTooltip metricKey="leadsGenerated" />
             </div>
             <ResponsiveContainer width="100%" height={250}>
@@ -556,7 +556,7 @@ export default function Dashboard() {
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <div className="p-5 border-b border-gray-100">
-            <h2 className="text-lg font-semibold text-gray-800">DÃ©tail par semaine</h2>
+            <h2 className="text-lg font-semibold text-gray-800">Détail par semaine</h2>
             <p className="text-xs text-gray-400 mt-1">Survolez une cellule pour voir la source du chiffre</p>
           </div>
           <div className="overflow-x-auto">
@@ -570,7 +570,7 @@ export default function Dashboard() {
                   <th className="px-4 py-3 text-right font-medium text-gray-500">Offres</th>
                   <th className="px-4 py-3 text-right font-medium text-gray-500">Clients</th>
                   <th className="px-4 py-3 text-right font-medium text-gray-500">ARR fin</th>
-                  <th className="px-4 py-3 text-right font-medium text-gray-500">ARR projetÃ©</th>
+                  <th className="px-4 py-3 text-right font-medium text-gray-500">ARR projeté</th>
                   <th className="px-4 py-3 text-center font-medium text-gray-500">Statut</th>
                 </tr>
               </thead>
@@ -602,7 +602,7 @@ export default function Dashboard() {
         </div>
 
         <div className="text-center text-xs text-gray-400 py-4">
-          Hexa GTM Dashboard {"â"} DonnÃ©es mises Ã  jour via GitHub {"â¢"} Auto-refresh toutes les 5 min
+          Hexa GTM Dashboard {"—"} Données mises à jour via GitHub {"•"} Auto-refresh toutes les 5 min
         </div>
       </div>
     </div>
